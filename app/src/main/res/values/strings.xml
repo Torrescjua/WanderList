@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WanderList</string>
     <string name="btn_uno">Explorar Destinos</string>
+    <string name="todos">Todos</string>
 </resources>

@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        val categories = arrayOf("Todos")
+
         val spinner:Spinner = findViewById(R.id.spinner_destinations)
         spinner.onItemSelectedListener = this
 

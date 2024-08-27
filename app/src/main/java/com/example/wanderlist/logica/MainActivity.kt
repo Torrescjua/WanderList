@@ -1,14 +1,11 @@
-package com.example.wanderlist
+package com.example.wanderlist.logica
 
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.wanderlist.R
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -15,27 +15,38 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var selectedCategory: String
 
-    @SuppressLint("MissingInflatedId")
+    companion object {
+        val favoritesList = mutableListOf<Destino>()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Configurar el Spinner con las categorías
         val categories = arrayOf("Todos", "Playas", "Montañas", "Ciudades Históricas", "Maravillas del Mundo", "Selvas")
         val spinner: Spinner = findViewById(R.id.spinner_destinations)
-
-        //Creacion Adapter
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
-        // Configurar el botón "Explorar Destinos"
         val exploreButton: Button = findViewById(R.id.btn_explore_destinations)
         exploreButton.setOnClickListener {
             val intent = Intent(this, DestinationsActivity::class.java).apply {
                 putExtra("CATEGORY", selectedCategory)
             }
+            startActivity(intent)
+        }
+
+        val favoritesButton: Button = findViewById(R.id.btn_favorites)
+        favoritesButton.setOnClickListener {
+            val intent = Intent(this, FavoritesActivity::class.java)
+            startActivity(intent)
+        }
+
+        val recommendationsButton: Button = findViewById(R.id.btn_recommendations)
+        recommendationsButton.setOnClickListener {
+            val intent = Intent(this, RecommendationsActivity::class.java)
             startActivity(intent)
         }
     }
@@ -45,6 +56,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        // No se necesita implementar nada aquí
+        // No es necesario manejar nada aquí
     }
 }

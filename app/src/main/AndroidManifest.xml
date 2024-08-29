@@ -13,6 +13,12 @@
         android:theme="@style/Theme.WanderList"
         tools:targetApi="31">
         <activity
+            android:name=".logica.RecommendationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".logica.FavoritesActivity"
+            android:exported="false" />
+        <activity
             android:name=".logica.DestinationsDetailsActivity"
             android:exported="false" />
         <activity

@@ -38,14 +38,16 @@ class DestinationsDetailsActivity : AppCompatActivity() {
     private fun displayDestinoDetails() {
         val textViewDetails: TextView = findViewById(R.id.textViewDetails)
         val details = """
-            Nombre: ${destino.nombre}
-            País: ${destino.pais}
-            Categoría: ${destino.categoria}
-            Plan: ${destino.plan}
-            Precio: ${destino.precio} USD
-        """.trimIndent()
-        textViewDetails.text = details
+        <b>${destino.nombre}</b><br>
+        ${destino.pais}<br>
+        ${destino.categoria}<br>
+        ${destino.plan}<br>
+        USD ${destino.precio}
+    """.trimIndent()
+
+        textViewDetails.text = android.text.Html.fromHtml(details, android.text.Html.FROM_HTML_MODE_COMPACT)
     }
+
 
     private fun setupAddToFavoritesButton() {
         val btnAddToFavorites: Button = findViewById(R.id.btnAddToFavorites)

@@ -3,4 +3,12 @@
     <string name="btn_uno">Explorar Destinos</string>
     <string name="todos">Todos</string>
     <string name="btn_add">Add to Favorites</string>
+    <string name="tourist_destinations_title">Tourist Destinations</string>
+    <string name="destinos_favoritos">Destinos Favoritos</string>
+    <string name="recomendaci_n">Recomendación</string>
+    <string name="destino">Destino:</string>
+    <string name="actividad_recomendada">Actividad recomendada:</string>
+    <string name="explorar_destinos">Explorar Destinos</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="recomendaciones">Recomendaciones</string>
 </resources>

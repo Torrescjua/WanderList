@@ -27,30 +27,24 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun setupSpinner() {
         findViewById<Spinner>(R.id.spinner_destinations).apply {
+<<<<<<< HEAD
             adapter = ArrayAdapter(
                 this@MainActivity, android.R.layout.simple_spinner_item,
-                arrayOf(
-                    "Todos",
-                    "Playas",
-                    "Montañas",
-                    "Ciudades Históricas",
-                    "Maravillas del Mundo",
-                    "Selvas"
-                )
+                arrayOf("Todos", "Playas", "Montañas", "Ciudades Históricas", "Maravillas del Mundo", "Selvas")
             ).also {
                 it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-                adapter = ArrayAdapter.createFromResource(
-                    this@MainActivity,
-                    R.array.destination_array,
-                    android.R.layout.simple_spinner_item
-                ).also { adapter ->
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-                }
-                onItemSelectedListener = this@MainActivity
+=======
+            adapter = ArrayAdapter.createFromResource(
+                this@MainActivity,
+                R.array.destination_array,
+                android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+>>>>>>> fe16f41be260a3a1e6fbf7ced42d22b8a83d8ae2
             }
+            onItemSelectedListener = this@MainActivity
         }
+    }
 
         private fun setupExploreButton() {
             findViewById<Button>(R.id.btn_explore_destinations).setOnClickListener {
@@ -69,18 +63,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         }
 
-        private fun setupRecommendations() {
-            findViewById<Button>(R.id.btn_recommendations).setOnClickListener {
-                startActivity(Intent(this, RecommendationsActivity::class.java))
-            }
-        }
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        selectedCategory = parent?.getItemAtPosition(position).toString()
+    }
 
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            selectedCategory = parent?.getItemAtPosition(position).toString()
-        }
-
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-            // No se requiere acción cuando no se selecciona nada
-        }
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        // No se requiere acción cuando no se selecciona nada
     }
 }

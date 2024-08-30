@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setupSpinner()
         setupExploreButton()
         setupFavoritesButton()
+        setupRecommendations()
     }
 
     private fun setupSpinner() {
@@ -51,6 +52,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private fun setupFavoritesButton() {
         findViewById<Button>(R.id.btn_favorites).setOnClickListener {
             startActivity(Intent(this, FavoritesActivity::class.java))
+        }
+    }
+
+    private  fun setupRecommendations() {
+        findViewById<Button>(R.id.btn_recommendations).setOnClickListener {
+            startActivity(Intent(this, RecommendationsActivity::class.java))
         }
     }
 

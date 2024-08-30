@@ -54,21 +54,7 @@ class DestinationsDetailsActivity : AppCompatActivity() {
         showDetails(destino)
     }
 
-    private fun showDetails(destination: Destino) {
-
-        val weatherInfo = getWeather(destination.pais)
-
-        val temperatura:Double
-        val descripcion: String
-
-        if (weatherInfo != null) {
-            temperatura = weatherInfo["Temperatura"] as Double
-            descripcion = weatherInfo["Descripción"] as String
-        }
-        else {
-         temperatura = 0.0
-         descripcion = ""
-        }
+    private fun showDetails(destino: Destino) {
 
         val details = """
         <b>${destino.nombre}</b><br>
@@ -78,6 +64,7 @@ class DestinationsDetailsActivity : AppCompatActivity() {
         USD ${destino.precio}
     """.trimIndent()
 
+        getWeather(destino.nombre)
         textViewDetails.text = android.text.Html.fromHtml(details, android.text.Html.FROM_HTML_MODE_COMPACT)
 
     }
@@ -93,45 +80,40 @@ class DestinationsDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun getWeather(pais: String): Map<String, Any>? {
+    private fun getWeather(locationName: String) {
         val geocoder = Geocoder(this, Locale.getDefault())
 
         // Obtener las coordenadas usando el Geocoder
-        val addresses = geocoder.getFromLocationName(pais, 1)
+        val addresses = geocoder.getFromLocationName(locationName, 1)
 
         if (addresses != null) {
             if (addresses.isNotEmpty()) {
-                val address = addresses?.get(0)
+                val address = addresses[0]
                 val lat = address?.latitude
                 val lon = address?.longitude
 
                 // Continuar con la llamada a la API usando lat y lon
                 if (lat != null) {
                     if (lon != null) {
-                        return fetchWeatherData(lat, lon)
+                         fetchWeatherData(lat, lon)
                     }
                 }
             } else {
                 // Manejar el caso donde no se encontraron direcciones
                 runOnUiThread {
-                    Toast.makeText(this@DestinationsDetailsActivity, "No se encontraron coordenadas para $pais", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@DestinationsDetailsActivity, "No se encontraron coordenadas para $locationName", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-        return null
     }
-    private fun fetchWeatherData(lat: Double, lon: Double): Map<String, Any> {
+
+    private fun fetchWeatherData(lat: Double, lon: Double) {
         val apiKey = "38c483b08e1596f2fd4daf70c5b2b59b"
         val url = "https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$apiKey&units=metric"
 
         val request = Request.Builder()
             .url(url)
             .build()
-
-        var clima: Map<String, Any> = mapOf(
-            "Temperatura" to 22.2,
-            "Descripción" to "descripcion"
-        )
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -158,7 +140,7 @@ class DestinationsDetailsActivity : AppCompatActivity() {
 
 
                         val clima = """
-                        ${descripcion}
+                        $descripcion
                         ${temperatura}°C
                     """.trimIndent()
                         runOnUiThread {
@@ -168,6 +150,5 @@ class DestinationsDetailsActivity : AppCompatActivity() {
                 }
             }
         })
-        return clima
     }
 }

@@ -12,9 +12,13 @@ class FavoritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
 
-        val listView: ListView = findViewById(R.id.listViewFavoritos)
+        setupListView()
+    }
 
+    private fun setupListView() {
+        val listView: ListView = findViewById(R.id.listViewFavoritos)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, MainActivity.favoritesList.map { it.nombre })
         listView.adapter = adapter
     }
 }
+

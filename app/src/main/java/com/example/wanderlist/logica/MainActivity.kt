@@ -7,8 +7,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wanderlist.R
 
-
-
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var selectedCategory: String
@@ -21,7 +19,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Configuración del Spinner
+        setupSpinner()
+        setupExploreButton()
+        setupFavoritesButton()
+    }
+
+    private fun setupSpinner() {
         findViewById<Spinner>(R.id.spinner_destinations).apply {
             adapter = ArrayAdapter.createFromResource(
                 this@MainActivity,
@@ -32,8 +35,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
             onItemSelectedListener = this@MainActivity
         }
+    }
 
-        // Botón "Explorar Destinos"
+    private fun setupExploreButton() {
         findViewById<Button>(R.id.btn_explore_destinations).setOnClickListener {
             startActivity(
                 Intent(this, DestinationsActivity::class.java).putExtra(
@@ -42,18 +46,19 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 )
             )
         }
+    }
 
-        // Botón "Favoritos"
+    private fun setupFavoritesButton() {
         findViewById<Button>(R.id.btn_favorites).setOnClickListener {
             startActivity(Intent(this, FavoritesActivity::class.java))
         }
-
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         selectedCategory = parent?.getItemAtPosition(position).toString()
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {}
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        // No se requiere acción cuando no se selecciona nada
+    }
 }
-

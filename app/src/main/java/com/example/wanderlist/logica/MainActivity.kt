@@ -27,12 +27,20 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun setupSpinner() {
         findViewById<Spinner>(R.id.spinner_destinations).apply {
+<<<<<<< HEAD
+            adapter = ArrayAdapter(
+                this@MainActivity, android.R.layout.simple_spinner_item,
+                arrayOf("Todos", "Playas", "Montañas", "Ciudades Históricas", "Maravillas del Mundo", "Selvas")
+            ).also {
+                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+=======
             adapter = ArrayAdapter.createFromResource(
                 this@MainActivity,
                 R.array.destination_array,
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+>>>>>>> fe16f41be260a3a1e6fbf7ced42d22b8a83d8ae2
             }
             onItemSelectedListener = this@MainActivity
         }

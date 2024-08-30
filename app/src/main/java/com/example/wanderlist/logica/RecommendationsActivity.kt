@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.wanderlist.R
 
 class RecommendationsActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recommendations)
@@ -14,7 +15,7 @@ class RecommendationsActivity : AppCompatActivity() {
         recommendedActivityTextView.text = getRecommendedActivity()
     }
 
-    private fun getRecommendedActivity(): String {
+    private fun getRecommendedActivity(): CharSequence? {
         val favoritesList = MainActivity.favoritesList
 
         if (favoritesList.isEmpty()) {
@@ -35,6 +36,14 @@ class RecommendationsActivity : AppCompatActivity() {
 
         val randomDestination = filteredFavorites.random()
 
-        return "${randomDestination.nombre} - ${randomDestination.plan}"
+        val details = """
+        <b>${randomDestination.nombre}</b><br>
+        ${randomDestination.pais}<br>
+        ${randomDestination.categoria}<br>
+        ${randomDestination.plan}<br>
+        USD ${randomDestination.precio}
+    """.trimIndent()
+
+        return android.text.Html.fromHtml(details, android.text.Html.FROM_HTML_MODE_COMPACT)
     }
 }

@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.wanderlist.R
 import org.json.JSONObject
 
-
-
 class DestinationsDetailsActivity : AppCompatActivity() {
 
     private lateinit var destino: Destino
@@ -19,10 +17,15 @@ class DestinationsDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_destinations_details)
 
         val destinoString = intent.getStringExtra("DESTINO")
-        val destinoJson = JSONObject(destinoString)
+        destino = parseDestinoFromJson(destinoString)
 
-        // Crear un objeto Destino a partir del JSON recibido
-        destino = Destino(
+        displayDestinoDetails()
+        setupAddToFavoritesButton()
+    }
+
+    private fun parseDestinoFromJson(destinoString: String?): Destino {
+        val destinoJson = JSONObject(destinoString)
+        return Destino(
             id = destinoJson.getInt("id"),
             nombre = destinoJson.getString("nombre"),
             pais = destinoJson.getString("pais"),
@@ -30,11 +33,10 @@ class DestinationsDetailsActivity : AppCompatActivity() {
             plan = destinoJson.getString("plan"),
             precio = destinoJson.getInt("precio")
         )
+    }
 
+    private fun displayDestinoDetails() {
         val textViewDetails: TextView = findViewById(R.id.textViewDetails)
-        val btnAddToFavorites: Button = findViewById(R.id.btnAddToFavorites)
-
-        // Mostrar detalles del destino
         val details = """
             Nombre: ${destino.nombre}
             País: ${destino.pais}
@@ -42,19 +44,27 @@ class DestinationsDetailsActivity : AppCompatActivity() {
             Plan: ${destino.plan}
             Precio: ${destino.precio} USD
         """.trimIndent()
-
         textViewDetails.text = details
+    }
 
-        // Configurar el botón para añadir a favoritos
+    private fun setupAddToFavoritesButton() {
+        val btnAddToFavorites: Button = findViewById(R.id.btnAddToFavorites)
         btnAddToFavorites.setOnClickListener {
-            // Verificar si el destino ya está en la lista de favoritos
-            if (!MainActivity.favoritesList.contains(destino)) {
-                MainActivity.favoritesList.add(destino)
+            if (addToFavorites()) {
                 btnAddToFavorites.isEnabled = false
                 Toast.makeText(this, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "El destino ya está en favoritos", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun addToFavorites(): Boolean {
+        return if (!MainActivity.favoritesList.contains(destino)) {
+            MainActivity.favoritesList.add(destino)
+            true
+        } else {
+            false
         }
     }
 }
